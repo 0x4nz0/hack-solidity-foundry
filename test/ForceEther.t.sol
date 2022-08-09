@@ -18,7 +18,7 @@ contract ForceEtherTest is Test {
         hoax(bob);
         etherGame.deposit{value: 1 ether}();
     }
-    
+
     function testClaimReward() public {
         address eve = vm.addr(3);
         startHoax(eve);
@@ -29,7 +29,7 @@ contract ForceEtherTest is Test {
 
         assertEq(address(etherGame).balance, 7 ether);
         assertEq(etherGame.winner(), eve);
-        
+
         etherGame.claimReward();
     }
 
@@ -41,7 +41,7 @@ contract ForceEtherTest is Test {
         attack.attack{value: 5 ether}();
 
         assertEq(address(etherGame).balance, 7 ether);
-        
+
         vm.expectRevert(bytes("Not winner"));
         etherGame.claimReward();
     }
